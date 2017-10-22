@@ -1,0 +1,7 @@
+#/bin/bash
+fileToCheck=$(basename $1)
+if [ ! -f $2/${fileToCheck%'.EXAMPLE'} ]; then
+	 /bin/cp -rf $1 $2
+else
+	echo "Skipping '${fileToCheck%'.EXAMPLE'}' - local configuration present"
+fi

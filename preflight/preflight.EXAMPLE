@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# 1. Ensure the "jekyll-shared" folder is a sibling of the jekyll project directories
+# 2. Make a copy of this file into the root of each project (and set executable)
+# 3. Configure the jekyll settings below (if needed)
+# 4. Run './preflight' to update shared code
+#
+############################################################
+
+# Edit this:
+# Where do the jekyll source files live? (relative to the project root)
+JEKYLL_PROJECT_SASS=ui/css
+JEKYLL_PROJECT_JS=sources/js
+
+
+############################################################
+# DO NOT EDIT BELOW
+############################################################
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PREFLIGHT_DIR=$DIR/preflightSupport
+
+# Search
+# script EXECDIR SASSDIR JSDIR
+$DIR/../jekyll-shared/preflight/search/_preflight_search $DIR $JEKYLL_PROJECT_SASS $JEKYLL_PROJECT_JS

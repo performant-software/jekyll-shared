@@ -1,0 +1,66 @@
+#!/bin/bash
+#_preflight_search.sh
+#
+# Preflight script for adding/updating search support
+# assumes there is a shared search repo, this applies local customizations
+# and moves the code into place
+##########################################################################
+EXECDIR=$1
+PREFLIGHTSCRIPTDIR=$EXECDIR/../jekyll-shared/preflight/
+SEARCH_SRC=$EXECDIR/../jekyll-shared/search/
+SEARCH_DST=$EXECDIR
+JEKYLL_PROJECT_SASS=$2
+JEKYLL_PROJECT_JS=$3
+JEKYLL_PROJECT_SASS="$SEARCH_DST/$JEKYLL_PROJECT_SASS"
+JEKYLL_PROJECT_JS="$SEARCH_DST/$JEKYLL_PROJECT_JS"
+JEKYLL_PROJECT_INCLUDES="$SEARCH_DST/_includes"
+JEKYLL_PROJECT_DATA="$SEARCH_DST/_data"
+JEKYLL_PROJECT_LAYOUTS="$SEARCH_DST/_layouts"
+JEKYLL_PROJECT_PAGES="$SEARCH_DST/_pages"
+
+
+
+
+echo =================================
+echo PREFLIGHT: SEARCH SETUP
+echo =================================
+echo "Project: $1"
+echo "SASS: $JEKYLL_PROJECT_SASS"
+echo "JS: $JEKYLL_PROJECT_JS"
+echo =================================
+
+#### Setup
+# Make directories if they don't exist
+mkdir -p $JEKYLL_PROJECT_SASS
+mkdir -p $JEKYLL_PROJECT_JS
+mkdir -p $JEKYLL_PROJECT_INCLUDES
+mkdir -p $JEKYLL_PROJECT_DATA
+mkdir -p $JEKYLL_PROJECT_LAYOUTS
+mkdir -p $JEKYLL_PROJECT_PAGES
+
+#### Required
+
+# js and includes
+echo Search: Updating js and includes...
+find $SEARCH_SRC/assets/js -maxdepth 1 -type f -exec /bin/cp -rf {} $JEKYLL_PROJECT_JS \;
+find $SEARCH_SRC/includes -maxdepth 1 -type f -exec /bin/cp -rf {} $JEKYLL_PROJECT_INCLUDES \;
+
+
+#### Optional
+echo Search: Copying example files where necessary...
+
+# example sass
+find $SEARCH_SRC/assets/sass -maxdepth 1 -type f ! -name ".DS_Store" -exec $PREFLIGHTSCRIPTDIR/util/_copyExampleIfRealFileNotPresent {} $JEKYLL_PROJECT_SASS \;
+
+# example layouts
+find $SEARCH_SRC/layouts -maxdepth 1 -type f ! -name ".DS_Store" -exec $PREFLIGHTSCRIPTDIR/util/_copyExampleIfRealFileNotPresent {} $JEKYLL_PROJECT_LAYOUTS \;
+
+# example pages
+find $SEARCH_SRC/pages -maxdepth 1 -type f ! -name ".DS_Store" -exec $PREFLIGHTSCRIPTDIR/util/_copyExampleIfRealFileNotPresent {} $JEKYLL_PROJECT_PAGES \;
+
+# example data
+find $SEARCH_SRC/data -maxdepth 1 -type f ! -name ".DS_Store" -exec $PREFLIGHTSCRIPTDIR/util/_copyExampleIfRealFileNotPresent {} $JEKYLL_PROJECT_DATA \;
+
+
+# Show the readme
+cat $PREFLIGHTSCRIPTDIR/search/README.TXT
