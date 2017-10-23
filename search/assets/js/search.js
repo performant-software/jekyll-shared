@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 			searchResults.innerHTML = appendString;
 		} else {
-			displayFailureMessage('No results found for "' + searchTerm);
+			displayFailureMessage('No results found for "' + searchTerm+'"');
 		}
 
 

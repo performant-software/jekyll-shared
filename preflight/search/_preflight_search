@@ -11,6 +11,7 @@ SEARCH_SRC=$EXECDIR/../jekyll-shared/search/
 SEARCH_DST=$EXECDIR
 JEKYLL_PROJECT_SASS=$2
 JEKYLL_PROJECT_JS=$3
+localJSPath=$JEKYLL_PROJECT_JS
 JEKYLL_PROJECT_SASS="$SEARCH_DST/$JEKYLL_PROJECT_SASS"
 JEKYLL_PROJECT_JS="$SEARCH_DST/$JEKYLL_PROJECT_JS"
 JEKYLL_PROJECT_INCLUDES="$SEARCH_DST/_includes"
@@ -45,6 +46,12 @@ echo Search: Updating js and includes...
 find $SEARCH_SRC/assets/js -maxdepth 1 -type f -exec /bin/cp -rf {} $JEKYLL_PROJECT_JS \;
 find $SEARCH_SRC/includes -maxdepth 1 -type f -exec /bin/cp -rf {} $JEKYLL_PROJECT_INCLUDES \;
 
+# replace hardcoded js path
+localJSPath=${localJSPath/\//\\\/}
+echo IS NOW: $localJSPath
+sedregexp='s/~LOCAL_JS_PATH~/\/'$localJSPath'/g'
+sed -i -e $sedregexp $JEKYLL_PROJECT_INCLUDES/search_support_head.html
+rm $JEKYLL_PROJECT_INCLUDES/search_support_head.html-e
 
 #### Optional
 echo Search: Copying example files where necessary...

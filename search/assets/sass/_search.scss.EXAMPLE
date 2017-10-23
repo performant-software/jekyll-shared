@@ -4,6 +4,12 @@ $color-searchBackground: #625044;
 $color-searchFocus: #00B4CC;
 $color-searchPlaceholder: #DDDDDD;
 $size-searchBox: 2rem;
+$color-searchResultsLinkHover: #c2b4a5;
+
+mark {
+    background-color: yellow;
+    color: black;
+}
 
 .search {
 	width: 100%;
@@ -30,11 +36,12 @@ input::placeholder {
 }
 
 .searchButton {
-	width: 3.2rem;
-	left: -.1rem;
-	margin: 0;
-	font-size: 2.68rem;
 	position: absolute;
+	top:0;
+    width: 3.2rem;
+    left: -.1rem;
+    margin: 0;
+    font-size: 2.82rem;
 	right: 0.1rem;
 	border: 1px solid $color-search;
 	background: $color-search;
@@ -77,7 +84,7 @@ input::placeholder {
 .smallSearch .searchButton {
   width:2rem;
   margin: 0 0 0;
-  font-size: 0.8rem;
+  font-size: 1.6rem;
   top:0;
   border-radius: 0.3rem 0 0 0.3rem;
   background-color: #625044; }
@@ -115,14 +122,10 @@ input::placeholder {
 }
 
 #search-results h3 a:hover {
-	color: $color-linkHover;
+	color: $color-searchResultsLinkHover;
 }
 
 #search-results h3 a {
 	text-decoration: none;
 	border-bottom: 1px solid rgba(98, 80, 68, 0.14);
 }
-
-/*
-	Typeahead
-*/
