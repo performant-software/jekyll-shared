@@ -20,8 +20,6 @@ JEKYLL_PROJECT_LAYOUTS="$SEARCH_DST/_layouts"
 JEKYLL_PROJECT_PAGES="$SEARCH_DST/_pages"
 
 
-
-
 echo =================================
 echo PREFLIGHT: SEARCH SETUP
 echo =================================
@@ -54,6 +52,7 @@ sed -i -e $sedregexp $JEKYLL_PROJECT_INCLUDES/search_support_head.html
 rm $JEKYLL_PROJECT_INCLUDES/search_support_head.html-e
 
 #### Optional
+# FIXME: annoying, if someone makes _pages/search.md instead of .html then .html.EXAMPLE still shows up
 echo Search: Copying example files where necessary...
 
 # example sass
@@ -67,7 +66,6 @@ find $SEARCH_SRC/pages -maxdepth 1 -type f ! -name ".DS_Store" -exec $PREFLIGHTS
 
 # example data
 find $SEARCH_SRC/data -maxdepth 1 -type f ! -name ".DS_Store" -exec $PREFLIGHTSCRIPTDIR/util/_copyExampleIfRealFileNotPresent {} $JEKYLL_PROJECT_DATA \;
-
 
 # Show the readme
 cat $PREFLIGHTSCRIPTDIR/search/README.TXT
